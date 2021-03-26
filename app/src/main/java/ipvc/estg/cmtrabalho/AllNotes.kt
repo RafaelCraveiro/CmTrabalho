@@ -1,11 +1,8 @@
 package ipvc.estg.cmtrabalho
 
 import android.app.Activity
-import android.content.ContentValues
 import android.content.Intent
-import android.graphics.Canvas
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -20,7 +17,7 @@ import ipvc.estg.cmtrabalho.entities.Nota
 import ipvc.estg.cmtrabalho.viewmodel.NotaViewModel
 
 
-class MainActivity : AppCompatActivity() {
+class AllNotes : AppCompatActivity() {
 
     private lateinit var notaViewModel: NotaViewModel
 
@@ -28,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_notes)
 
         // recycler view
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
@@ -36,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val mIth = ItemTouchHelper(
+        ItemTouchHelper(
                 object : ItemTouchHelper.SimpleCallback(0 or ItemTouchHelper.RIGHT,
                         ItemTouchHelper.LEFT) {
                     override fun onMove(recyclerView: RecyclerView,
@@ -51,14 +48,39 @@ class MainActivity : AppCompatActivity() {
 
                         if (id != null) {
                             notaViewModel.deleteByID(id)
+
                         }
 
-                    }
 
+                    }
                 }
 
 
 
+        ).attachToRecyclerView(recyclerView)
+
+        ItemTouchHelper(
+                object : ItemTouchHelper.SimpleCallback(0 or ItemTouchHelper.LEFT,
+                        ItemTouchHelper.RIGHT) {
+                    override fun onMove(recyclerView: RecyclerView,
+                                        viewHolder: ViewHolder, target: ViewHolder): Boolean {
+
+                        return true // true if moved, false otherwise
+                    }
+
+                    override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
+
+                        val id: Int? = notaViewModel.allNotas.value?.get(viewHolder.adapterPosition)?.id
+                        val tit: String? = notaViewModel.allNotas.value?.get(viewHolder.adapterPosition)?.titulo
+                        val desc: String? = notaViewModel.allNotas.value?.get(viewHolder.adapterPosition)?.descricao
+                        val intent = Intent(this@AllNotes, EditarNota::class.java)
+                        intent.putExtra("id",id)
+                        intent.putExtra("tit",tit)
+                        intent.putExtra("desc",desc)
+                        startActivityForResult(intent, newWordActivityRequestCode)
+
+                    }
+                }
         ).attachToRecyclerView(recyclerView)
 
 
@@ -72,29 +94,29 @@ class MainActivity : AppCompatActivity() {
         //Fab
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, NewNota::class.java)
+            val intent = Intent(this@AllNotes, NewNota::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
+
         }
 
+
+
+
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            val ptitu = data?.getStringExtra(NewNota.EXTRA_REPLY_CITY)
-            val pdesc = data?.getStringExtra(NewNota.EXTRA_REPLY_COUNTRY)
+            val ptitu = data?.getStringExtra(NewNota.EXTRA_REPLY_TITULO)
+            val pdesc = data?.getStringExtra(NewNota.EXTRA_REPLY_DESCRICAO)
 
             if (ptitu!= null && pdesc != null) {
                 val nota = Nota(titulo = ptitu, descricao = pdesc)
                 notaViewModel.insert(nota)
             }
 
-        } else {
-            Toast.makeText(
-                    applicationContext,
-                    R.string.empty_not_saved,
-                    Toast.LENGTH_LONG).show()
         }
     }
 

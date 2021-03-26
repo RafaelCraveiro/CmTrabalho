@@ -39,18 +39,11 @@ class NotaViewModel(application: Application) : AndroidViewModel(application) {
      fun deleteByID(id: Int) = viewModelScope.launch(Dispatchers.IO) {
          repository.deleteByID(id)
      }
-    fun updateNotaByID(id: Int, titulo: String,descricao: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun updateNotaByID(id: Int, titulo: String, descricao: String) = viewModelScope.launch(Dispatchers.IO) {
         repository.updateNotaByID(id,titulo,descricao)
     }
 
 /*
-     fun getCitiesByCountry(country: String): LiveData<List<City>> {
-         return repository.getCitiesByCountry(country)
-     }
-
-     fun getCountryFromCity(city: String): LiveData<City> {
-         return repository.getCountryFromCity(city)
-     }
 
      fun updateCity(city: City) = viewModelScope.launch {
          repository.updateCity(city)

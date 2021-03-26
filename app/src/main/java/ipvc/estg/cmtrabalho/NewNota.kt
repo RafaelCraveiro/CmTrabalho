@@ -26,8 +26,8 @@ class NewNota : AppCompatActivity() {
             if (TextUtils.isEmpty(tituloText.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                replyIntent.putExtra(EXTRA_REPLY_CITY, tituloText.text.toString())
-                replyIntent.putExtra(EXTRA_REPLY_COUNTRY, descText.text.toString())
+                replyIntent.putExtra(EXTRA_REPLY_TITULO, tituloText.text.toString())
+                replyIntent.putExtra(EXTRA_REPLY_DESCRICAO, descText.text.toString())
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -35,7 +35,7 @@ class NewNota : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLY_CITY = "com.example.android.city"
-        const val EXTRA_REPLY_COUNTRY = "com.example.android.country"
+        const val EXTRA_REPLY_TITULO = "com.example.android.titulo"
+        const val EXTRA_REPLY_DESCRICAO = "com.example.android.descricao"
     }
 }

@@ -1,22 +1,13 @@
 package ipvc.estg.cmtrabalho.adapters
 
-import android.app.Application
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ipvc.estg.cmtrabalho.MainActivity
 import ipvc.estg.cmtrabalho.R
 import ipvc.estg.cmtrabalho.entities.Nota
-import kotlinx.coroutines.withContext
-
 
 class NotaListAdapter internal constructor(
     context: Context
@@ -28,7 +19,10 @@ class NotaListAdapter internal constructor(
     class NotaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val notaItemViewt: TextView = itemView.findViewById(R.id.textViewt)
         val notaItemViewdesc: TextView = itemView.findViewById(R.id.textViewdes)
+
+
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotaViewHolder {
         val itemView = inflater.inflate(R.layout.recyclerview_item, parent, false)
@@ -39,8 +33,8 @@ class NotaListAdapter internal constructor(
         val current = notasss[position]
         holder.notaItemViewt.text = current.titulo
         holder.notaItemViewdesc.text = current.descricao
-
     }
+
 
 
     internal fun setNotas(notasss: List<Nota>) {
@@ -49,4 +43,8 @@ class NotaListAdapter internal constructor(
     }
 
     override fun getItemCount() = notasss.size
+
+
+
+
 }
