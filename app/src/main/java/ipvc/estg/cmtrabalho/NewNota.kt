@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class NewNota : AppCompatActivity() {
@@ -22,6 +23,10 @@ class NewNota : AppCompatActivity() {
 
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
+            if(tituloText.text.isEmpty() || descText.text.isEmpty()){
+                Toast.makeText(this, R.string.campovazio, Toast.LENGTH_SHORT).show()
+            }
+            else {
             val replyIntent = Intent()
             if (TextUtils.isEmpty(tituloText.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
@@ -31,7 +36,7 @@ class NewNota : AppCompatActivity() {
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
-        }
+        }}
     }
 
     companion object {

@@ -91,7 +91,7 @@ class AllNotes : AppCompatActivity() {
             notas?.let { adapter.setNotas(it) }
         })
 
-        //Fab
+
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
             val intent = Intent(this@AllNotes, NewNota::class.java)
@@ -120,84 +120,4 @@ class AllNotes : AppCompatActivity() {
         }
     }
 
-/*
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
-        return true
-    }*/
-/*
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
-        return when (item.itemId) {
-            R.id.apagartudo -> {
-                cityViewModel.deleteAll()
-                true
-            }
-
-            R.id.cidadesPortugal -> {
-
-                // recycler view
-                val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-                val adapter = CityAdapter(this)
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager = LinearLayoutManager(this)
-
-                // view model
-                cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
-                cityViewModel.getCitiesByCountry("Portugal").observe(this, Observer { cities ->
-                    // Update the cached copy of the words in the adapter.
-                    cities?.let { adapter.setCities(it) }
-                })
-
-                true
-            }
-
-            R.id.todasCidades -> {
-
-                // recycler view
-                val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-                val adapter = CityAdapter(this)
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager = LinearLayoutManager(this)
-
-                // view model
-                cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
-                cityViewModel.allCities.observe(this, Observer { cities ->
-                    // Update the cached copy of the words in the adapter.
-                    cities?.let { adapter.setCities(it) }
-                })
-
-
-                true
-            }
-
-            R.id.getCountryFromAveiro -> {
-                cityViewModel = ViewModelProvider(this).get(CityViewModel::class.java)
-                cityViewModel.getCountryFromCity("Aveiro").observe(this, Observer { city ->
-                    Toast.makeText(this, city.country, Toast.LENGTH_SHORT).show()
-                })
-                true
-            }
-
-            R.id.apagarAveiro -> {
-                cityViewModel.deleteByCity("Aveiro")
-                true
-            }
-
-            R.id.alterar -> {
-                val city = City(id = 1, city = "xxx", country = "xxx")
-                cityViewModel.updateCity(city)
-                true
-            }
-
-            R.id.alteraraveiro -> {
-                cityViewModel.updateCountryFromCity("Aveiro", "Japão")
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-*/
 }

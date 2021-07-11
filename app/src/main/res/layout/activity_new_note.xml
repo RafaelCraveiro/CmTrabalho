@@ -9,13 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:hint="Titulo"
+        android:hint="@string/titulo"
         android:inputType="textAutoComplete|textCapWords"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/desc"
-        android:hint="Descrição"
+        android:hint="@string/descricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:text="Save"
+        android:text="@string/inserir"
         />
 
 </LinearLayout>

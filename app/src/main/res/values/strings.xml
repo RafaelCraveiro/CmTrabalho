@@ -1,6 +1,37 @@
 <resources>
     <string name="app_name">CmTrabalho</string>
-    <string name="empty_not_saved">Nao daaa</string>
+    <string name="empty_not_saved">Nao da</string>
     <string name="notas">Consultar Notas</string>
+    <string name="login_p" translatable="false">login_p</string>
+    <string name="login_shared" translatable="false">login_shared</string>
+    <string name="nome" translatable="false">nome</string>
+    <string name="id_utilizador" translatable="false">id_utl</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="av_email">Falta Email</string>
+    <string name="avi_pass">Falta Pass</string>
+    <string name="email_fomato">Formato Incorreto</string>
+    <string name="erro">Erro no login</string>
+    <string name="lembrar">Lembrar</string>
+    <string name="login" translatable="false">Login</string>
+    <string name="titulo">Titulo</string>
+    <string name="descricao">Descrição</string>
+    <string name="inserir">Inserir</string>
+    <string name="update">Alterar</string>
+    <string name="delete">Eliminar</string>
+    <string name="aviso_desc">aviso_desc</string>
+    <string name="logout">Sair</string>
+    <string name="notas1">notas</string>
+    <string name="campovazio">Campos Vazios</string>
+    <string name="visualizar_rep">Nao pode visualizar este reporte</string>
+    <string name="eliminadosucesso">Eliminado com Sucesso</string>
+    <string name="menu_mapa">mapa</string>
+    <string name="report">reporte</string>
+    <string name="chose_img">Escolher Imagem</string>
+    <string name="pick_img">Pesquisar</string>
+    <string name="titulofalta">Falta Titulo</string>
+    <string name="descfalta">Falta Descriçao</string>
+    <string name="imgfalta">Falta Imagem</string>
+    <string name="reportSuccess">Inserido com sucesso</string>
+
 
 </resources>
