@@ -20,16 +20,22 @@ interface EndPoints {
 
     @FormUrlEncoded
     @POST("api/rep/editar") // pedido POST para editar
-    fun editarRep(@Field("id_anom") first: Int, @Field("titulo") second: String,
+    fun editarRep1(@Field("id_anom") first: Int, @Field("titulo") second: String,
                    @Field("descricao") third: String): Call<Marker>
 
     @DELETE("api/eliminar/{id}")
     fun eliminarRep(@Path("id") first: Int): Call<Markerdel>
 
     @FormUrlEncoded
-    @POST("api/addrep") // pedido POST para reportar
-    fun addAnom(@Field("idutilizador") first: Int, @Field("descr") second:String,
-                @Field("lat") third: Double, @Field("lng") fourth: Double,
-                @Field("titulo") fifth: String, @Field("imagem") sixth: String): Call<Marker>
+    @POST("api/addrepp") // pedido POST para reportar
+    fun addRep(@Field("idutilizador")idutilizador: Int, @Field("descr") descr: String,
+                @Field("lat") lat: String, @Field("lng") lng: String,
+                @Field("titulo") titulo: String, @Field("imagem") imagem: String): Call<Marker>
+
+
+    @FormUrlEncoded
+    @PUT("reports/{id}")
+    fun editarRep(@Path("id") id: Int,@Field("descr") descr: String, @Field( "titulo") titulo: String): Call<result>
+
 
 }

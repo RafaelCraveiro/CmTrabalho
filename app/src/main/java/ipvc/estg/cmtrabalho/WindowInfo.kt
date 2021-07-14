@@ -2,6 +2,8 @@ package ipvc.estg.cmtrabalho
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -11,6 +13,7 @@ import android.widget.Toast
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.squareup.picasso.Picasso
+import kotlin.math.log
 
 class WindowInfo (context: Context) : GoogleMap.InfoWindowAdapter {
 
@@ -25,17 +28,21 @@ class WindowInfo (context: Context) : GoogleMap.InfoWindowAdapter {
         val btn1 = view.findViewById<Button>(R.id.button4)
         val btn2 = view.findViewById<Button>(R.id.button5)
 
-        val strs= marker.snippet.split("+").toTypedArray()
+        val strs= marker.snippet.split(";").toTypedArray()
 
         tvTitle.text = marker.title
         tvSnippet.text = strs[0]
-        Picasso.get().load(strs[1]).into(image);
 
-        image.getLayoutParams().height = 450;
-        image.getLayoutParams().width = 450;
+        Log.d("TAG1", strs[3])
+        Log.d("TAG2", strs[2])
+
+        val decodedString: ByteArray = Base64.decode(strs[1], Base64.DEFAULT)
+        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+        image.setImageBitmap(decodedByte)
+
+        image.getLayoutParams().height = 450; // ajudtar tamanho da iamgem
+        image.getLayoutParams().width = 600;
         image.requestLayout();
-
-
 
         if( strs[2].equals(strs[3])){
             btn1.visibility = (View.VISIBLE)

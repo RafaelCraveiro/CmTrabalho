@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import ipvc.estg.cmtrabalho.api.EndPoints
 import ipvc.estg.cmtrabalho.api.Marker
 import ipvc.estg.cmtrabalho.api.ServiceBuilder
+import ipvc.estg.cmtrabalho.api.result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,7 +39,7 @@ class addrep: AppCompatActivity() {
         utl_atual = intent.getStringExtra("UTL_ATUAL").toString()
         lat = intent.getStringExtra("LAT").toString()
         long = intent.getStringExtra("LONG").toString()
-        Toast.makeText(this, "utl: " + utl_atual + " LAT: " + lat + " LONG: " + long, Toast.LENGTH_SHORT).show()
+
 
 
 
@@ -67,8 +68,8 @@ class addrep: AppCompatActivity() {
             Toast.makeText(this, R.string.imgfalta, Toast.LENGTH_SHORT).show()
         }else {
             val request = ServiceBuilder.buildService(EndPoints::class.java)
-            val call = request.addAnom(utl_atual.toInt(), desc.text.toString(), lat.toDouble(), long.toDouble(), title.text.toString(),img_64)
-            Toast.makeText(this@addrep, img_64, Toast.LENGTH_SHORT).show()
+            val call = request.addRep(idutilizador = utl_atual.toInt(), descr = desc.text.toString(), lat = lat, lng=long, titulo = title.text.toString(),imagem = img_64)
+
             call.enqueue(object : Callback<Marker> {
 
                 override fun onResponse(call: Call<Marker>, response: Response<Marker>) {
@@ -77,7 +78,7 @@ class addrep: AppCompatActivity() {
                         startActivity(intent)
                     }
                     else{
-                        Toast.makeText(this@addrep,"ta quase", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@addrep,"ta quase2", Toast.LENGTH_SHORT).show()
                     }
                 }
 

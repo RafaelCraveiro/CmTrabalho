@@ -36,7 +36,7 @@ const val TITULOA="TITULO"
 const val DESCRICAOA="DESCRICAO"
 const val IDA= "OOO"
 const val IMAGEM="IMAGEM"
-const val TIPO="IMAGEM"
+const val IDU="OOO"
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private lateinit var mMap: GoogleMap
@@ -66,16 +66,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
             override fun onResponse(call: Call<List<Marker>>, response: Response<List<Marker>>) {
                 if (response.isSuccessful){
                     for(Marker in response.body()!!){
-                        position = LatLng(Marker.lat, Marker.lng)
-                        if(id_utilizador.toString().toInt() == Marker.idutilizador){
+                        position = LatLng(Marker.lat.toDouble(), Marker.lng.toDouble())
+                        if(id_utilizador == Marker.idutilizador){
                             mMap.addMarker(MarkerOptions()
                                     .position(position).title( Marker.titulo )
-                                    .snippet(Marker.descr + "+" + Marker.imagem + "+" + Marker.idutilizador + "+" + id_utilizador.toString() + "+" + Marker.id)
+                                    .snippet(Marker.descr + ";" + Marker.imagem + ";" + Marker.idutilizador + ";" + id_utilizador + ";" + Marker.id)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
                         }else{
                             mMap.addMarker(MarkerOptions()
                                     .position(position).title(Marker.titulo)
-                                    .snippet(Marker.descr + "+" + Marker.imagem + "+" + Marker.idutilizador + "+" + id_utilizador.toString() + "+" + Marker.id)
+                                    .snippet(Marker.descr + ";" + Marker.imagem + ";" + Marker.idutilizador + ";" + id_utilizador + ";" + Marker.id)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)))
                         }
 
@@ -173,13 +173,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
     }
 
     override fun onInfoWindowClick(p0: com.google.android.gms.maps.model.Marker) {
-        val title = p0?.title?.split("+")?.toTypedArray()  //ID e tituo
-        val snippet = p0?.snippet?.split("+")?.toTypedArray() //Divide o snippet
+        val title = p0?.title?.split(";")?.toTypedArray()  //ID e tituo
+        val snippet = p0?.snippet?.split(";")?.toTypedArray() //Divide o snippet
 
         if(id_utilizador.toString().equals( snippet?.get(2))){
             val intent = Intent(this ,Reportes::class.java).apply {
                 Log.d("TAG", snippet?.get(4).toString())
                 putExtra(IDA, snippet?.get(4)!!.toInt())
+                putExtra(IDU, snippet?.get(2)!!.toInt())
                 putExtra(TITULOA, title?.get(0))
                 putExtra(DESCRICAOA, snippet?.get(0))
                 putExtra(IMAGEM, snippet?.get(1))
@@ -193,8 +194,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
     fun add_rep(view: View) {
        val intent = Intent(this, addrep::class.java)
         intent.putExtra("UTL_ATUAL", id_utilizador.toString())
-        intent.putExtra("LAT", "41.6956517")
-        intent.putExtra("LONG", "-8.8422917")
+        intent.putExtra("LAT", lastLocation.latitude.toString())
+        intent.putExtra("LONG", lastLocation.longitude.toString())
         startActivity(intent)
     }
     }

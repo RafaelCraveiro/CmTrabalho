@@ -12,8 +12,8 @@ data class Marker(
         val id: Int,
         val idutilizador: Int,
         val descr: String,
-        val lat: Double,
-        val lng: Double,
+        val lat: String,
+        val lng: String,
         val titulo: String,
         val imagem: String
 )
@@ -21,4 +21,8 @@ data class Markerdel(
     val id: Int
 )
 
+data class result (
+    val status: Boolean,
+    val message: String
+)
 

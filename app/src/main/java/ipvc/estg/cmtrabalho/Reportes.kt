@@ -8,22 +8,20 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
-import ipvc.estg.cmtrabalho.api.EndPoints
-import ipvc.estg.cmtrabalho.api.Marker
-import ipvc.estg.cmtrabalho.api.Markerdel
-import ipvc.estg.cmtrabalho.api.ServiceBuilder
+import ipvc.estg.cmtrabalho.api.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class Reportes : AppCompatActivity() {
     var idA: Int? = null;
-
+    var idU: Int? = null;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.reportes)
 
         idA= intent.getIntExtra(IDA, 1)
+        idU= intent.getIntExtra(IDU, 1)
         Toast.makeText(this, idA.toString(), Toast.LENGTH_SHORT).show()
         val titulo = intent.getStringExtra(TITULOA)
         val descricao = intent.getStringExtra(DESCRICAOA)
@@ -78,11 +76,11 @@ class Reportes : AppCompatActivity() {
 
         }else{
             val request = ServiceBuilder.buildService(EndPoints::class.java)
-            val call = request.editarRep(idA!!.toInt(), title.text.toString(), desc.text.toString())
+            val call = request.editarRep(idA!!,desc.text.toString(),title.text.toString())
 
-            call.enqueue(object : Callback<Marker> {
+            call.enqueue(object : Callback<result> {
 
-                override fun onResponse(call: Call<Marker>, response: Response<Marker>) {
+                override fun onResponse(call: Call<result>, response: Response<result>) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@Reportes, "getString(R.string.edit_sucess)" , Toast.LENGTH_SHORT).show()
                         startActivity(intent)
@@ -92,7 +90,7 @@ class Reportes : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<Marker>, t: Throwable) {
+                override fun onFailure(call: Call<result>, t: Throwable) {
                     Log.d("TAG", "err: " + t.message)
                 }
 
